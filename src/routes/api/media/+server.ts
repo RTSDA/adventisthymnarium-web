@@ -1,6 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { createHmac, createHash } from 'crypto';
+import { env } from '$lib/server/env';
 
 export const GET: RequestHandler = async ({ url, request }) => {
   try {
@@ -9,10 +10,10 @@ export const GET: RequestHandler = async ({ url, request }) => {
       throw error(400, 'Missing path parameter');
     }
 
-    const accessKey = '97a57b347b3a49235d9f2886a6f35f31';
-    const secretKey = 'd9df33c01dd374dee6e278e4726486062f3fa9a070753aec82bf5b3bf00f8d9a';
+    const accessKey = env.R2_ACCESS_KEY_ID;
+    const secretKey = env.R2_SECRET_ACCESS_KEY;
+    const accountId = env.R2_ACCOUNT_ID;
     const region = 'auto';
-    const accountId = '45e213fed10247ce4f5ff5c4af8fe592';
     const bucketName = 'adventist-hymnarium-assets';
 
     const host = `${accountId}.r2.cloudflarestorage.com`;
