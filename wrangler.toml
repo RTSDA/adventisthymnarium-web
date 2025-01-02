@@ -8,4 +8,5 @@ database_id = "ef884ddc-8d29-4109-bc37-150dcdf09ba8"
 
 [[r2_buckets]]
 binding = "BUCKET"
-bucket_name = "adventist-hymnarium-assets" 
+bucket_name = "adventist-hymnarium-assets"
+preview_bucket_name = "adventist-hymnarium-assets" 
