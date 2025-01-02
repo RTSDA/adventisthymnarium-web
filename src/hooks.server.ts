@@ -1,9 +1,13 @@
 import { dev } from '$app/environment';
 import { error, type Handle } from '@sveltejs/kit';
-import Database from 'better-sqlite3';
 
-// Create a development database connection
-const devDb = dev ? new Database('static/hymnarium.db') : null;
+let devDb: any = null;
+
+if (dev) {
+  // Only import better-sqlite3 in development
+  const { default: Database } = await import('better-sqlite3');
+  devDb = new Database('static/hymnarium.db');
+}
 
 export const handle: Handle = async ({ event, resolve }) => {
   // In development, we'll use better-sqlite3 to access the local database
