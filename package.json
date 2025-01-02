@@ -2,7 +2,7 @@
 	"name": "adventisthymnarium-web",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"package": "svelte-kit sync && svelte-package && publint",
@@ -12,8 +12,10 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run && npm run test:e2e",
-		"test:e2e": "playwright test"
+		"test": "npm run test:integration && npm run test:unit",
+		"test:e2e": "playwright test",
+		"test:integration": "playwright test",
+		"dev:d1": "concurrently \"vite dev\" \"wrangler pages dev --d1 hymnarium --proxy 5173\""
 	},
 	"files": [
 		"dist",
@@ -36,14 +38,18 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20241230.0",
 		"@eslint/compat": "^1.2.3",
 		"@playwright/test": "^1.45.3",
 		"@sveltejs/adapter-auto": "^3.3.1",
 		"@sveltejs/kit": "^2.15.0",
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@types/better-sqlite3": "^7.6.12",
 		"@types/sql.js": "^1.4.9",
 		"autoprefixer": "^10.4.20",
+		"better-sqlite3": "^11.7.0",
+		"concurrently": "^9.1.2",
 		"eslint": "^9.7.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",

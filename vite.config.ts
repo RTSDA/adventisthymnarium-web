@@ -3,10 +3,12 @@ import { sveltekit } from '@sveltejs/kit/vite';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	optimizeDeps: {
+		exclude: ['better-sqlite3']
+	},
 	server: {
 		fs: {
-			allow: ['.']
+			allow: ['static']
 		}
-	},
-	envPrefix: 'VITE_'
+	}
 });
