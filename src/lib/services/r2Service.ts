@@ -5,8 +5,8 @@ import type { HymnalYear } from '$lib/types/hymn';
  * These paths are locked and should NOT be modified unless explicitly requested:
  * 
  * Audio Files:
- * - New hymnal (en-newVersion): audio/1985/1985/en_XXX.mp3
- * - Old hymnal (en-oldVersion): audio/1985/1941/XXX.mp3
+ * - New hymnal (en-newVersion): audio/1985/en_XXX.mp3
+ * - Old hymnal (en-oldVersion): audio/1941/XXX.mp3
  * 
  * Sheet Music:
  * - New hymnal (en-newVersion): sheet-music/1985/PianoSheet_NewHymnal_en_XXX.png
@@ -47,12 +47,12 @@ export class R2Service {
   private getMediaPath(hymnalYear: HymnalYear, type: 'audio' | 'sheet-music'): string {
     if (type === 'audio') {
       return hymnalYear === 'en-oldVersion' 
-        ? 'audio/1985/1941'
-        : 'audio/1985/1985';
+        ? 'audio/1941'
+        : 'audio/1985';
     } else {
       return hymnalYear === 'en-oldVersion'
-        ? 'sheet-music/1985/1941'
-        : 'sheet-music/1985';  // No second 1985 folder for sheet music
+        ? ''
+        : 'sheet-music/1985';
     }
   }
 

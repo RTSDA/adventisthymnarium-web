@@ -4,4 +4,8 @@ compatibility_date = "2024-01-02"
 [[d1_databases]]
 binding = "DB"
 database_name = "hymnarium"
-database_id = "ef884ddc-8d29-4109-bc37-150dcdf09ba8" 
+database_id = "ef884ddc-8d29-4109-bc37-150dcdf09ba8"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "adventist-hymnarium-assets" 
