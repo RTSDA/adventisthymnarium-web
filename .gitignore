@@ -1,0 +1,36 @@
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# SQLite database files
+*.db
+*.db-journal
+
+# IDE specific files
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build artifacts
+/static/build
+/dist
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local development
+.vercel
+.netlify
+.output
+.turbo
