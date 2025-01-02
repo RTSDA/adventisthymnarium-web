@@ -10,17 +10,12 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint .",
+		"lint": "prettier --check .",
 		"test:unit": "vitest",
 		"test": "npm run test:integration && npm run test:unit",
 		"test:e2e": "playwright test",
 		"test:integration": "playwright test",
 		"dev:d1": "concurrently \"vite dev\" \"wrangler pages dev --d1 DB=hymnarium --r2 BUCKET=adventist-hymnarium-assets --proxy 5173\""
-	},
-	"pnpm": {
-		"overrides": {
-			"eslint": "9.0.0"
-		}
 	},
 	"files": [
 		"dist",
@@ -54,9 +49,6 @@
 		"autoprefixer": "^10.4.20",
 		"better-sqlite3": "^11.7.0",
 		"concurrently": "^9.1.2",
-		"eslint": "9.0.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
 		"postcss": "^8.4.49",
 		"prettier": "^3.3.2",
