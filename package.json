@@ -15,7 +15,7 @@
 		"test": "npm run test:integration && npm run test:unit",
 		"test:e2e": "playwright test",
 		"test:integration": "playwright test",
-		"dev:d1": "concurrently \"vite dev\" \"wrangler pages dev --d1 DB=hymnarium --binding 'BUCKET={\"bucketName\":\"adventist-hymnarium-assets\",\"accountId\":\"45e213fed10247ce4f5ff5c4af8fe592\",\"type\":\"r2\"}' --proxy 5173\""
+		"dev:d1": "concurrently \"vite dev\" \"wrangler pages dev --d1 DB=hymnarium --r2 BUCKET=adventist-hymnarium-assets --proxy 5173\""
 	},
 	"files": [
 		"dist",

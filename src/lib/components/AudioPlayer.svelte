@@ -206,14 +206,19 @@
         progress.set((currentTime / duration) * 100);
       }
     }}
-    on:durationchange={() => duration = audio.duration}
+    on:loadedmetadata={() => {
+      duration = audio.duration;
+      isLoading = false;
+    }}
     on:waiting={() => isLoading = true}
     on:canplay={() => isLoading = false}
     on:error={() => {
       hasError = true;
       isLoading = false;
     }}
-    preload="metadata"
+    preload="none"
+    playsinline
+    webkit-playsinline
   />
 </div>
 
