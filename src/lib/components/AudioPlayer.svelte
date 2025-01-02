@@ -12,7 +12,7 @@
   let currentTime = 0;
   let volume = 1;
   let isMuted = false;
-  let isLoading = true;
+  let isLoading = false;
   let hasError = false;
   let isDragging = false;
   let wasPlayingBeforeDrag = false;
@@ -28,13 +28,21 @@
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  function handlePlayPause() {
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
+  async function handlePlayPause() {
+    try {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        isLoading = true;
+        await audio.play();
+      }
+      isPlaying = !isPlaying;
+    } catch (error) {
+      console.error('Playback error:', error);
+      hasError = true;
+    } finally {
+      isLoading = false;
     }
-    isPlaying = !isPlaying;
   }
 
   function handleVolumeChange(e: Event) {
@@ -96,6 +104,10 @@
   onMount(() => {
     window.addEventListener('mousemove', handleProgressDrag);
     window.addEventListener('mouseup', handleProgressDragEnd);
+
+    if (audio && src) {
+      audio.load();
+    }
 
     return () => {
       window.removeEventListener('mousemove', handleProgressDrag);
