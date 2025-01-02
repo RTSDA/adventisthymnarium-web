@@ -29,14 +29,15 @@
   }
 
   async function handlePlayPause() {
+    if (!audio) return;
+    
     try {
-      if (isPlaying) {
-        audio.pause();
-      } else {
+      if (audio.paused) {
         isLoading = true;
         await audio.play();
+      } else {
+        audio.pause();
       }
-      isPlaying = !isPlaying;
     } catch (error) {
       console.error('Playback error:', error);
       hasError = true;
@@ -210,8 +211,13 @@
   <audio
     bind:this={audio}
     {src}
-    on:play={() => isPlaying = true}
-    on:pause={() => isPlaying = false}
+    bind:paused={!isPlaying}
+    on:play={() => {
+      isLoading = false;
+    }}
+    on:pause={() => {
+      isLoading = false;
+    }}
     on:timeupdate={() => {
       if (!isDragging) {
         currentTime = audio.currentTime;
