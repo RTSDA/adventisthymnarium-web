@@ -211,11 +211,12 @@
   <audio
     bind:this={audio}
     {src}
-    bind:paused={!isPlaying}
     on:play={() => {
+      isPlaying = true;
       isLoading = false;
     }}
     on:pause={() => {
+      isPlaying = false;
       isLoading = false;
     }}
     on:timeupdate={() => {
