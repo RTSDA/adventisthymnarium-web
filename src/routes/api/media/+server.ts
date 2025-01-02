@@ -13,6 +13,11 @@ export const GET: RequestHandler = async ({ url, request }) => {
     const accessKey = env.R2_ACCESS_KEY_ID;
     const secretKey = env.R2_SECRET_ACCESS_KEY;
     const accountId = env.R2_ACCOUNT_ID;
+    
+    if (!accessKey || !secretKey || !accountId) {
+      throw error(500, 'Missing required R2 credentials');
+    }
+    
     const region = 'auto';
     const bucketName = 'adventist-hymnarium-assets';
 
@@ -65,32 +70,14 @@ export const GET: RequestHandler = async ({ url, request }) => {
     const signedHeaders = 'host;x-amz-content-sha256;x-amz-date';
     headers['Authorization'] = `AWS4-HMAC-SHA256 Credential=${credential},SignedHeaders=${signedHeaders},Signature=${signature}`;
 
-    console.log('Request details:', {
-      url: fullUrl,
-      headers,
-      canonicalRequest,
-      stringToSign,
-      signature
-    });
-
     const response = await fetch(fullUrl, { headers });
     
     if (!response.ok) {
       const text = await response.text();
-      const errorDetails = {
+      console.error('R2 error:', response.status, response.statusText);
+      return new Response(text, {
         status: response.status,
-        statusText: response.statusText,
-        responseText: text,
-        requestUrl: fullUrl,
-        requestHeaders: headers,
-        canonicalRequest,
-        stringToSign,
-        signature
-      };
-      console.error('R2 error details:', errorDetails);
-      return new Response(JSON.stringify(errorDetails), {
-        status: response.status,
-        headers: { 'content-type': 'application/json' }
+        headers: { 'content-type': 'text/plain' }
       });
     }
 
@@ -118,17 +105,11 @@ export const GET: RequestHandler = async ({ url, request }) => {
       headers: responseHeaders
     });
   } catch (err) {
-    const e = err as Error;
-    const errorDetails = {
-      name: e.name,
-      message: e.message,
-      stack: e.stack,
-      cause: e.cause
-    };
-    console.error('Full error details:', errorDetails);
-    return new Response(JSON.stringify(errorDetails), {
+    const error = err as Error;
+    console.error('Media request failed:', error.message);
+    return new Response('Internal server error', {
       status: 500,
-      headers: { 'content-type': 'application/json' }
+      headers: { 'content-type': 'text/plain' }
     });
   }
 }; 
